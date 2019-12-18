@@ -1,21 +1,17 @@
 <template>
-    <body>
-        <div class="title">
-            <h1>Welcome to Treasure Hunt</h1>
-        </div>
-        <br>
-        <div class="buttons">
-            <button class="btn btn-primary btn-lg create-btn" type="text" >
+    <div class="homepage">
+        <div class="container">
+            <div class="title">
+                <h1>Welcome to Treasure Hunt</h1>
+            </div>
+            <router-link to="/register" class="btn btn-primary btn-lg create-btn mb-2" tag="div">
                 CREATE A NEW ACCOUNT
-            </button>
-            <br>
- 
-            <button class="btn btn-lg login-btn" type="text">
+            </router-link>
+            <router-link to="/login" class="btn btn-lg login-btn" tag="div">
                 LOGIN
-            </button>
+            </router-link>
         </div>
-    </body>
-
+    </div>
 </template>
 
 <script>
@@ -24,36 +20,20 @@ export default {
 }
 </script>
 
-<style>
-body {
-    display:flex; 
-    flex-direction:column; 
-    justify-content:center;
-    min-height: 75vh;
-}
-.title {
-    margin-left: auto;
-    margin-right: auto;
-    width: 75%;
+<style lang="scss">
+.homepage{
+    width: 100%;
+    height: 100vh;
+    display: flex;
     align-items: center;
     justify-content: center;
-    text-align: center;
-}
-
-.buttons {
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-}
-
-.create-btn {
-    margin: auto;
-    padding: auto;
-    width: 275px;
-}
-
-.login-btn {
-    padding: auto;
-    width: 275px;
+    .container{
+        display: flex;
+        flex-direction: column; 
+        text-align: center;
+        margin-bottom: 3rem;
+        padding-left: .5rem;
+        padding-right: .5rem;
+    }
 }
 </style>
