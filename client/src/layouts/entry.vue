@@ -1,18 +1,12 @@
 <template>
   <div class="entry-layout">
     <div class="action-bar">
-      <i class="icon icon-back"></i>
+      <router-link to="/" tag="a">
+        <i class="icon icon-back"></i>
+      </router-link>
+    </div>
+    <div class="entry-main">
+      <router-view></router-view>
     </div>
   </div>
 </template>
-
-<script>
-export default {
-
-}
-</script>
-
-<style lang="scss">
-.action-bar{
-}
-</style>
