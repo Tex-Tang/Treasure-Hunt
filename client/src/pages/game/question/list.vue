@@ -36,6 +36,7 @@ export default {
     flex-direction: column;
     justify-content: space-between;
 }
+
 .container {
     width: 100%;
     display: flex;

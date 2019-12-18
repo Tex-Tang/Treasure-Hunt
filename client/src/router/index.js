@@ -29,11 +29,11 @@ const router = new VueRouter({
       children: [
         {
           path: '',
-          component: () => import('../pages/game/question/List.vue')
+          component: () => import('../pages/game/question/list.vue')
         },
         {
           path: 'question',
-          component: () => import('../pages/game/question/Single.vue')
+          component: () => import('../pages/game/question/single.vue')
         }
       ]
     }
