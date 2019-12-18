@@ -3,8 +3,6 @@ import VueRouter from 'vue-router'
 
 Vue.use(VueRouter)
 
-const routes = []
-
 const router = new VueRouter({
   routes : [
     {
@@ -14,6 +12,10 @@ const router = new VueRouter({
         {
           path: 'register',
           component: () => import('../pages/entry/Register.vue')
+        },
+        {
+          path: "/",
+          component: () => import('../pages/Homepage.vue')
         }
       ]
     }
