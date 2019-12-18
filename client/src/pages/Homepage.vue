@@ -32,8 +32,8 @@ export default {
         flex-direction: column; 
         text-align: center;
         margin-bottom: 3rem;
-        padding-left: .5rem;
-        padding-right: .5rem;
+        padding-left: 1.6rem;
+        padding-right: 1.6rem;
     }
 }
 </style>

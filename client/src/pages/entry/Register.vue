@@ -10,7 +10,7 @@
         </div>
         <div class="column col-12">
           <p class="strong" style="margin: 1rem 0 .5rem 0;">Group members</p>
-          <div class="columns" v-for="member in data.members" :key="member">
+          <div class="columns" v-for="(member, ind) in data.members" :key="'member-' + ind">
             <div class="column col-6">
               <div class="form-group">
                 <input type="text" class="form-input" placeholder="Name" v-model="member.name">
@@ -24,8 +24,8 @@
           </div>
         </div>
       </div>
+      <div class="btn" style="width: 100%" v-on:click="register"><i class="icon icon-forward"></i></div>
     </form>
-    <div class="btn register-btn" v-on:click="register"><i class="icon icon-forward"></i></div>
   </div>
 </template>
 
@@ -44,10 +44,7 @@ export default {
   }),
   methods: {
     register: function() {
-      console.log("z")
-      this.$http.post('/login', this.data).then((data) => {
-        console.log(data);
-      })
+      console.log("register")
     }
   }
 }
@@ -60,9 +57,5 @@ export default {
   .column{
     margin-bottom: .5rem;
   }
-}
-.register-btn{
-  width: calc(100% - 5.5rem);
-  margin: 0 2.75rem;
 }
 </style>

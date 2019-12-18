@@ -6,6 +6,10 @@ Vue.use(VueRouter)
 const router = new VueRouter({
   routes : [
     {
+      path: "/",
+      component: () => import('../pages/Homepage.vue')
+    },
+    {
       path: '/',
       component: () => import('../layouts/entry.vue'),
       children: [
@@ -14,8 +18,22 @@ const router = new VueRouter({
           component: () => import('../pages/entry/Register.vue')
         },
         {
-          path: "/",
-          component: () => import('../pages/Homepage.vue')
+          path: 'login',
+          component: () => import('../pages/entry/Login.vue')
+        }
+      ]
+    },
+    {
+      path: '/game',
+      component: () => import('../layouts/game.vue'),
+      children: [
+        {
+          path: '',
+          component: () => import('../pages/game/question/List.vue')
+        },
+        {
+          path: 'question',
+          component: () => import('../pages/game/question/Single.vue')
         }
       ]
     }
