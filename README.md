@@ -20,19 +20,19 @@ TodoList
 ## Backend
 
 - [Laravel](https://laravel.com/docs/6.x/structure)
-- [Database structure](###Database-structure)
-- [End-point API](###End-point-API)
+- [Database structure](#Database-structure)
+- [End-point API](#End-point-API)
 
 ### Database structure
 
-- [users](####users)
-- [groups](####groups)
-- [group_members](####group_members)
-- [group_score](####group_score)
-- [group_questions](####group_questions)
-- [questions](####questions)
-- [question_location](####question_location)
-- [places](####places)
+- [users](#users)
+- [groups](#groups)
+- [group_members](#group_members)
+- [group_score](#group_score)
+- [group_questions](#group_questions)
+- [questions](#questions)
+- [question_location](#question_location)
+- [places](#places)
 
 #### users
 | Column Name       | Data Type    | Propeties | Comment |
@@ -103,8 +103,8 @@ TodoList
 | Column Name       | Data Type    | Propeties | Comment |
 | ----------------- | ------------ | --------- | ------- |
 | id                | BIGINT       | PK AI     | |
-| question_id       | BIGINT       | PK AI     | foreign key of id of [questions](####questions) |
-| place_id          | BIGINT       |           | foreign key of id of [groups](####groups) |
+| question_id       | BIGINT       | PK AI     | foreign key of id of [questions](#questions) |
+| place_id          | BIGINT       |           | foreign key of id of [groups](#groups) |
 | created_at        | TIMESTAMP    |           | |
 | updated_at        | TIMESTAMP    |           | |
 
@@ -118,15 +118,15 @@ TodoList
 
 ### End-point API
 
-- [Authorization](####Authorization)
-  - [Login](#####Login)
-  - [Register](#####Register)
-  - [Logout](#####Logout)
-- [Questions](####Questions)
-  - [Get Question](#####Get-question)
-  - [Answer Question](#####Answer-question)
-- [Scoreboard](####Scoreboard)
-  - [Get Scoreboard](#####Get-scoreboard)
+- [Authorization API](#Authorization-api)
+  - [Login](#Login)
+  - [Register](#Register)
+  - [Logout](#Logout)
+- [Questions API](#Questions-api)
+  - [Get Question](#Get-question)
+  - [Answer Question](#Answer-question)
+- [Scoreboard API](#Scoreboard-api)
+  - [Get Scoreboard](#Get-scoreboard)
 
 #### Authorization
 
