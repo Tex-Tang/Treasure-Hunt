@@ -52,7 +52,7 @@ TodoList
 | Column Name       | Data Type    | Propeties | Comment |
 | ----------------- | ------------ | --------- | ------- |
 | id                | BIGINT       | PK AI     | |
-| user_id           | BIGINT       |           | foreign key of id of [users](####users) |
+| user_id           | BIGINT       |           | foreign key of id of [users](#users) |
 | group_name        | VARCHAR      | UNIQUE    | |
 | created_at        | TIMESTAMP    |           | |
 | updated_at        | TIMESTAMP    |           | |
@@ -62,7 +62,7 @@ TodoList
 | Column Name       | Data Type    | Propeties | Comment |
 | ----------------- | ------------ | --------- | ------- |
 | id                | BIGINT       | PK AI     | |
-| group_id          | BIGINT       |           | foreign key of id of [groups](####groups) |
+| group_id          | BIGINT       |           | foreign key of id of [groups](#groups) |
 | name              | VARCHAR      |           | Ex: 26377 |
 | student_id        | VARCHAR(5)   | UNIQUE    | |
 | created_at        | TIMESTAMP    |           | |
@@ -72,7 +72,7 @@ TodoList
 | Column Name       | Data Type    | Propeties | Comment |
 | ----------------- | ------------ | --------- | ------- |
 | id                | BIGINT       | PK AI     | |
-| group_id          | BIGINT       |           | foreign key of id of [groups](####groups) |
+| group_id          | BIGINT       |           | foreign key of id of [groups](#groups) |
 | score             | INTEGER      |           | |
 | created_at        | TIMESTAMP    |           | |
 | updated_at        | TIMESTAMP    |           | |
@@ -81,8 +81,8 @@ TodoList
 | Column Name       | Data Type    | Propeties | Comment |
 | ----------------- | ------------ | --------- | ------- |
 | id                | BIGINT       | PK AI     | |
-| group_id          | BIGINT       |           | foreign key of id of [groups](####groups) |
-| question_id       | BIGINT       |           | foreign key of id of [questions](####questions) |
+| group_id          | BIGINT       |           | foreign key of id of [groups](#groups) |
+| question_id       | BIGINT       |           | foreign key of id of [questions](#questions) |
 | answer            | VARCHAR      |           | |
 | score             | INTEGER      |           | |
 | created_at        | TIMESTAMP    |           | |
