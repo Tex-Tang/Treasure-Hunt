@@ -28,13 +28,20 @@ const router = new VueRouter({
       component: () => import('../layouts/game.vue'),
       children: [
         {
+          name: 'Questions',
           path: '',
-          component: () => import('../pages/game/question/list.vue')
+          component: () => import('../pages/game/question/List.vue')
         },
         {
-          path: 'question',
-          component: () => import('../pages/game/question/single.vue')
-        }
+          name: 'Question',
+          path: 'question/:id',
+          component: () => import('../pages/game/question/Single.vue')
+        },
+        {
+          name: 'Scoreboard',
+          path: 'scoreboard',
+          component: () => import('../pages/game/Scoreboard.vue')
+        },
       ]
     }
   ]

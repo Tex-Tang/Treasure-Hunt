@@ -1,27 +1,14 @@
 <template>
-    <div class="big-container">
-        <div class="container">
-            <i class="icon icon-menu" w></i>
-            <div class="title">Questions</div>
-            <i class="icon icon-location"></i>
-        </div>
-        <br>
-        <div>
-            <div class="columns col-lg-auto">
-                <button class="btn column col-lg-auto">Question1</button>
-                <button class="btn column col-lg-auto">Question2</button>
-            </div>
-            <div class="columns col-lg-auto">
-                <button class="btn column col-lg-auto">Question3</button>
-                <button class="btn column col-lg-auto">Question4</button>
-            </div>
-        </div>
-        <br>
-        <div class="container bot">
-            <div>TeamName</div>
-            <div>Score</div>
-        </div>
-    </div>
+	<div class="questions">
+		<div class="columns">
+			<router-link to="/game/question/1" tag="div" class="column col-6 question-box" v-for="i in 4" :key="i">
+				<div class="title">Question {{i}}</div>
+				<div class="content">
+					At the Puan Sri Datin Mae Cheng Basketball Court, Basketball, Volleyball and what else is allowed?
+				</div>
+			</router-link>
+		</div>
+	</div>
 </template>
 
 <script>
@@ -30,41 +17,42 @@ export default {
 }
 </script>
 
-<style scoped>
-.big-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
+<style lang="scss">
 
-.container {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    padding: 25px;
+.questions{
+	display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100%;
+	.question-box{
+		height: 7rem;
+		border: solid .05rem black;
+		border-radius: .2rem;
+		padding: 0;
+		margin: .2rem;
+		width: calc(50% - .4rem);
+		.title{
+			text-align: center;
+			width: 100%;
+			background-color: black;
+			color: white;
+		}
+		.content{
+			padding: .25rem;
+			font-size: .7rem;
+			overflow: hidden;
+			display: -webkit-box;
+			-webkit-line-clamp: 5;
+			-webkit-box-orient: vertical;  
+			transition: all 200ms;
+		}
+		&:hover{
+			.content{
+				background-color: black;
+				color: white;
+			}
+		}
+	}
 }
-
-.flex-container {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-}
-
-.columns {
-    align-content: center;
-    justify-content: center;
-}
-
-.btn {
-    width: 50%;
-    height: 200px;
-}
-
-.bot {
-    vertical-align: bottom;
-}
-</style>>
+</style>

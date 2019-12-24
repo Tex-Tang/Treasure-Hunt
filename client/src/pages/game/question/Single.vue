@@ -1,50 +1,48 @@
 <template>
-  <div>
-        <div class="container">
-            <i class="icon icon-menu col-1" w></i>
-            <div class="title col-mx-auto">Questions</div>
-            <i class="icon icon-location col-1"></i>
-        </div>
-        <br>
-        <div>
-            <form class="form">
-                <div>Question</div>
-                <input class="form-input" type="text" value="answer">
-                <button class="btn" type="submit">Submit</button>
-            </form>
-        </div>
-  </div>
+<div class="container">
+  <div class="question-page">
+		<router-link to="/game" class="btn btn-link back-btn" tag="a">
+			<i class="icon icon-back"></i>
+		</router-link>
+		<div class="question">
+			At the Puan Sri Datin Mae Cheng Basketball Court, Basketball, Volleyball and what else is allowed?
+		</div>
+		<form class="form">
+			<input class="form-input" type="text" placeholder="Answer">
+			<div class="btn btn-primary">Submit</div>
+		</form>
+	</div>
+</div>
 </template>
 
 <script>
 export default {
-
+	mounted(){
+		console.log(this.$route)
+	}
 }
 </script>
 
-<style scoped>
-.container {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    padding: 25px;
+<style lang="scss" scoped>
+.container{
+	display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100%;
 }
-
-.form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    padding: 25px;
-}
-
-.btn {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
+.question-page{
+	.form{
+		margin-top: 1rem;
+		.btn{
+			margin-top: .5rem;
+			width: 100%;
+		}
+	}
+	.back-btn{
+		position: fixed;
+		top: 4rem;
+		left: 1.2rem;
+	}
 }
 </style>
