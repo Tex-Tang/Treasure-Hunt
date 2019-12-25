@@ -16,3 +16,8 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/api/game/questions', 'QuestionsController@show');
+Route::post('/api/game/question/answer', 'QuestionsController@answer');
+
+Route::get('/api/game/scoreboard', 'ScoreController@show');
