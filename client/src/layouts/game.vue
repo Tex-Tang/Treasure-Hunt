@@ -1,6 +1,6 @@
 <template>
 <div class="game-layout">
-	<div class="navbar">
+	<div class="navbar" v-if="$route.name != 'Instruction'">
 		<div class="d-flex navbar-content">
 			<router-link class="btn btn-link" tag="div" to="/game/scoreboard"><i class="icon icon-menu"></i></router-link>
 			<router-link class="title" tag="div" to="/game">Questions</router-link>
@@ -20,8 +20,24 @@
 </template>
 
 <script>
+import Cookies from 'js-cookie'
 export default {
-
+	data:() => ({
+		name: "",
+	}),
+	mounted(){
+		this.$http.get("/user", {
+			params: {
+				api_token: Cookies.get("API_TOKEN")
+			}
+		}).then((res) => {
+			this.name = res.data.data.name
+		}).catch((err) => {
+			if(err.response && err.response.status == 401){
+				this.$router.push("/")
+			}
+		})
+	}
 }
 </script>
 

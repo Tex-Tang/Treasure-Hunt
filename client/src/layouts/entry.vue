@@ -1,7 +1,7 @@
 <template>
   <div class="entry-layout">
     <div class="action-bar">
-      <router-link to="/" tag="a" class="btn btn-link">
+      <router-link to="/" tag="a" class="btn btn-link" v-if="$route.name == 'Register' || $route.name == 'Login'">
         <i class="icon icon-back"></i>
       </router-link>
     </div>
@@ -10,6 +10,25 @@
     </div>
   </div>
 </template>
+
+<script>
+import Cookies from 'js-cookie'
+export default {
+  data: () => ({
+    username: "",
+    password: "",
+  }),
+  mounted(){
+    this.$http.get("/user", {
+			params: {
+				api_token: Cookies.get("API_TOKEN")
+			}
+		}).then((res) => {
+			this.$router.push('/game')
+		})
+  }
+}
+</script>
 
 <style lang="scss" scoped>
 .action-bar{

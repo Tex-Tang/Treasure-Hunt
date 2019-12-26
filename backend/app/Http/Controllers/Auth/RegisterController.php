@@ -57,7 +57,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'group_name' => ['required', 'string', 'max:255', 'unique:groups'],
             'group_members.*.name' => ['required', 'string'],
-            'group_members.*.student_id' => ['required', 'string'],
+            'group_members.*.student_id' => ['required', 'string', 'unique:group_members'],
         ]);
     }
 
@@ -78,10 +78,11 @@ class RegisterController extends Controller
 
     public function register(Request $request){
         $data = $request->all();
-        if($this->validator($data)->fails()){
+        $validator = $this->validator($data);
+        if($validator->fails()){
             return [
                 "result" => "FAIL",
-                "data" => validation_errors()
+                "data" => $validator->errors()
             ];
         }
         $username = strtolower(preg_replace('/\s+/', '', $data['group_name']));

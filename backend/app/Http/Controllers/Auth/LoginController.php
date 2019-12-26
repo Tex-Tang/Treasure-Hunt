@@ -79,6 +79,6 @@ class LoginController extends Controller
             "data" => [
                 "error_message" => "Authentication failed"
             ]
-            ], 401);
+        ]);
     }
 }

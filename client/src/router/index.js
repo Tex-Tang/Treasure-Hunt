@@ -14,12 +14,19 @@ const router = new VueRouter({
       component: () => import('../layouts/entry.vue'),
       children: [
         {
+          name: 'Register',
           path: 'register',
           component: () => import('../pages/entry/Register.vue')
         },
         {
+          name: 'Login',
           path: 'login',
           component: () => import('../pages/entry/Login.vue')
+        },
+        {
+          name: 'Success',
+          path: 'success',
+          component: () => import('../pages/entry/Success.vue')
         }
       ]
     },
@@ -27,6 +34,11 @@ const router = new VueRouter({
       path: '/game',
       component: () => import('../layouts/game.vue'),
       children: [
+        {
+          name: 'Instruction',
+          path: 'instruction',
+          component: () => import('../pages/game/Instruction.vue')
+        },
         {
           name: 'Questions',
           path: '',

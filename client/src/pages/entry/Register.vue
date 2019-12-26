@@ -1,16 +1,16 @@
 <template>
   <div class="register-page">
-    <form class="form">
+    <form class="form" @submit.prevent="register">
       <h5>Group's info</h5>
       <div class="columns">
         <div class="column col-12">
           <div class="form-group">
-            <input type="text" class="form-input" placeholder="Group's name" v-model="data.groupname">
+            <input type="text" class="form-input" placeholder="Group's name" v-model="data.group_name">
           </div>
         </div>
         <div class="column col-12">
           <p class="strong" style="margin: 1rem 0 .5rem 0;">Group members</p>
-          <div class="columns" v-for="(member, ind) in data.members" :key="'member-' + ind">
+          <div class="columns" v-for="(member, ind) in data.group_members" :key="'member-' + ind">
             <div class="column col-6">
               <div class="form-group">
                 <input type="text" class="form-input" placeholder="Name" v-model="member.name">
@@ -18,33 +18,42 @@
             </div>
             <div class="column col-6">
               <div class="form-group">
-                <input type="text" class="form-input" placeholder="Student ID" v-model="member.id">
+                <input type="text" class="form-input" placeholder="Student ID" v-model="member.student_id">
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="btn" style="width: 100%" v-on:click="register"><i class="icon icon-forward"></i></div>
+      <button class="btn" style="width: 100%"><i class="icon icon-forward"></i></button>
     </form>
   </div>
 </template>
 
 <script>
+import Cookies from 'js-cookie'
 export default {
   data: () => ({
     data: {
-      groupname: "",
-      members: [
-        { name: "", id: "" },
-        { name: "", id: "" },
-        { name: "", id: "" },
-        { name: "", id: "" }
+      group_name: "",
+      group_members: [
+        { name: "", student_id: "" },
+        { name: "", student_id: "" },
+        { name: "", student_id: "" },
+        { name: "", student_id: "" }
       ]
     }
   }),
   methods: {
     register: function() {
-      console.log("register")
+      this.$http.post("register", this.data).then((data) => {
+        if(data.data.result == "FAIL") this.error = true;
+        else{
+          Cookies.set('API_TOKEN', data.data.data.token)
+          this.$parent.username = data.data.data.username
+          this.$parent.password = data.data.data.password
+          this.$router.push("/success")
+        }
+      })
     }
   }
 }
