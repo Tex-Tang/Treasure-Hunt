@@ -40,8 +40,6 @@ TodoList
 | id                | BIGINT       | PK AI     | |
 | name              | VARCHAR      |           | |
 | username          | VARCHAR      | UNIQUE    | Remove space and lowercase of group name Ex: Hello World -> helloworld |
-| email             | VARCHAR      | UNIQUE    | |
-| email_verified_at | TIMESTAMP    |           | |
 | password          | VARCHAR      |           | |
 | api_token         | VARCHAR(100) |           | |
 | remember_token    | VARCHAR(100) |           | |
