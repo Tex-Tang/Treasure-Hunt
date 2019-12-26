@@ -155,6 +155,9 @@ Code : `403`
 ```json
 {
   result: "FAIL"
+  data: {
+    error_message: "[string]"
+  }
 }
 ```
 
@@ -182,7 +185,8 @@ Code : `200`
   result: "OK"
   data: {
     username: "[string]",
-    password: "[string]"
+    password: "[string]",
+    token: "[string]"
   }
 }
 ```
@@ -191,7 +195,37 @@ Code : `403`
 ```json
 {
   result: "FAIL"
-  data: {}
+  data: {
+    error_message: "[string]"
+  }
+}
+```
+
+##### User
+GET `/api/user`
+
+Response data
+
+Code : `200`
+```json
+{
+  result: "OK",
+  data: {
+    group_name: "[string]",
+    username: "[string]",
+    ranking: "[string]",
+    score: "[integer]",
+  }
+}
+```
+
+Code : `403`
+```json
+{
+  result: "FAIL"
+  data: {
+    error_message: "user haven't login"
+  }
 }
 ```
 
