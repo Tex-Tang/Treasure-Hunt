@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -13,11 +15,18 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:api')->group(function () {
+    Route::get('user', function (Request $request) {
+        return Auth::user();
+    });
+    Route::post('logout', function (){ 
+        Auth::logout();
+    });
+    Route::get('game/questions', 'QuestionsController@show');
+    Route::post('game/question/answer', 'QuestionsController@answer');
+    Route::get('game/scoreboard', 'ScoreController@show');
 });
 
-Route::get('/api/game/questions', 'QuestionsController@show');
-Route::post('/api/game/question/answer', 'QuestionsController@answer');
-
-Route::get('/api/game/scoreboard', 'ScoreController@show');
+Route::post('register', 'Auth\RegisterController@register');
+Route::post('login', 'Auth\LoginController@authenticate')->name("login");
+Route::get('error', 'Auth\LoginController@failed')->name('error');
