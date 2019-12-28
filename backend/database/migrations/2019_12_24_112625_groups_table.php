@@ -16,6 +16,7 @@ class GroupsTable extends Migration
         Schema::create('groups', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('user_id');
+            $table->integer('streak');
             $table->string('group_name')->unique();
             $table->timestamps();
         });

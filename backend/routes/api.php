@@ -24,9 +24,15 @@ Route::middleware('auth:api')->group(function () {
     });
     Route::get('game/questions', 'QuestionsController@show');
     Route::post('game/question/answer', 'QuestionsController@answer');
-    Route::get('game/scoreboard', 'ScoreController@show');
 });
 
 Route::post('register', 'Auth\RegisterController@register');
 Route::post('login', 'Auth\LoginController@authenticate')->name("login");
 Route::get('error', 'Auth\LoginController@failed')->name('error');
+
+Route::get('game/scoreboard', 'ScoresController@show');
+
+/*
+Route::post('game/add_question', 'QuestionsController@create');
+Route::get('game/show_all_questions', 'QuestionsController@show_all');
+*/

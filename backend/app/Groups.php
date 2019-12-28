@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Group_scores;
 
 class Groups extends Model
 {
@@ -12,6 +13,6 @@ class Groups extends Model
      * @var array
      */
     protected $fillable = [
-        'group_name', 'user_id', 
+        'group_name', 'user_id', 'streak', 
     ];
 }

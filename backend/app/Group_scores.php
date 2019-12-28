@@ -3,8 +3,9 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Groups;
 
-class Group_score extends Model
+class Group_scores extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -15,8 +16,7 @@ class Group_score extends Model
         'group_id', 'score', 
     ];
 
-    public function group()
-    {
-        return $this->hasOne('App\Groups', 'id');
+    public function group() {
+        return $this->belongsTo(Groups::class);
     }
 }

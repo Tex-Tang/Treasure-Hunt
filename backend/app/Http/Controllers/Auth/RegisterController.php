@@ -7,6 +7,7 @@ use App\Providers\RouteServiceProvider;
 use App\User;
 use App\Groups;
 use App\Group_members;
+use App\Group_scores;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -97,6 +98,11 @@ class RegisterController extends Controller
         $group = Groups::create([
             "group_name" => $data['group_name'],
             "user_id" => $user->id,
+            "streak" => 0,
+        ]);
+        Group_scores::create([
+            "group_id" => $group->id,
+            "score" => 0,
         ]);
         foreach($data['group_members'] as $member){
             Group_members::create([

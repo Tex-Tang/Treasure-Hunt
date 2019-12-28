@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class GroupScoreTable extends Migration
+class GroupScoresTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class GroupScoreTable extends Migration
      */
     public function up()
     {
-        Schema::create('group_score', function (Blueprint $table) {
+        Schema::create('group_scores', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('group_id');
             $table->integer('score');
@@ -28,6 +28,6 @@ class GroupScoreTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('group_score');
+        Schema::dropIfExists('group_scores');
     }
 }

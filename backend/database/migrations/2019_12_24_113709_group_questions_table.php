@@ -19,6 +19,7 @@ class GroupQuestionsTable extends Migration
             $table->bigInteger('question_id');
             $table->string('answer');
             $table->integer('score');
+            $table->integer('status');
             $table->timestamps();
         });
     }
