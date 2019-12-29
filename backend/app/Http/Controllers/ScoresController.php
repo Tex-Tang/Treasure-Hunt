@@ -18,7 +18,9 @@ class ScoresController extends Controller
     {
         $data = array();
         foreach(Group_scores::all() as $grp) {
-            $data[] = array("groupname" => Groups::find($grp->group_id)->group_name, "score" => $grp->score);
+            $data[] = array(
+                "groupname" => Groups::find($grp->group_id)->group_name, 
+                "score" => $grp->score);
         }   
 
         return [

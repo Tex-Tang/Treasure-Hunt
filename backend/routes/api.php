@@ -31,8 +31,9 @@ Route::post('login', 'Auth\LoginController@authenticate')->name("login");
 Route::get('error', 'Auth\LoginController@failed')->name('error');
 
 Route::get('game/scoreboard', 'ScoresController@show');
-
-/*
 Route::post('game/add_question', 'QuestionsController@create');
-Route::get('game/show_all_questions', 'QuestionsController@show_all');
-*/
+Route::post('game/generate_questions', 'QuestionsController@generate');
+
+Route::get('show_all_questions', 'GeneralController@show_all_questions');
+Route::get('show_all_users', 'GeneralController@show_all_users');
+Route::get('show_all_group_members', 'GeneralController@show_all_group_members');

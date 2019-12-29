@@ -24,19 +24,22 @@ class QuestionsController extends Controller
         ];
     }
 
-    public function show_all() {
-        $data = array();
-        foreach(Questions::all() as $question) {
-            array_push($data, $question);
+    public function generate() {
+        $i = 1;
+        while($i <= 7) {
+            Questions::create([
+                "content" => ("what is " . $i . " + " . $i . "?"),
+                "type" => 1,
+                "answer" => (2 * $i),
+                "score" => 0,
+            ]);
+            $i += 1;
         }
-        return $data;
+        return [
+            "result" => "OK",
+        ];
     }
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Questions  $questions
-     * @return \Illuminate\Http\Response
-     */
+
     public function show()
     {
         $user = Auth::user();
@@ -86,9 +89,9 @@ class QuestionsController extends Controller
             // check for current_questions that have been assigned to group, but not answered yet
             if ($current_question->group_id == $group_id && $current_question->score == -1) {
                 array_push($data, 
-                array("id" => $current_question->question_id, 
-                "content" => $current_question->question->content, 
-                "score" => $current_question->question->score));
+                    array("id" => $current_question->question_id, 
+                          "content" => $current_question->question->content, 
+                          "score" => $current_question->question->score));
             }
         }
         return [
@@ -105,13 +108,13 @@ class QuestionsController extends Controller
         }
         $user = Auth::user();
         $group_id = $user->group->id;
-
         $flag = (Questions::find($request->id)->answer == $request->answer ? true : false);
+        
         if ($flag == true) {
             $user->group->streak += 1;
             $user->push();
             $streak = $user->group->streak;
-            $delta = 100 + 20 * $streak;
+            $delta = 80 + 20 * $streak;
             foreach(Group_questions::all() as $question) {
                 if ($question->question_id == $request->id && $question->group_id == $group_id) {
                     $question->score = $delta;
@@ -132,7 +135,7 @@ class QuestionsController extends Controller
             ];
         }
         else {
-            $user->group->streak = -1;
+            $user->group->streak = 0;
             $user->push();
             foreach(Group_questions::all() as $question) {
                 if ($question->question_id == $request->id && $question->group_id == $group_id) {
