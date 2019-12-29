@@ -10,7 +10,7 @@ import './assets/scss/spectre/spectre-exp.scss'
 import './assets/scss/spectre/spectre-icons.scss'
 
 Vue.prototype.$http = axios.create({
-  baseURL: 'http://localhost:8000/api/',
+  baseURL: 'http://178.128.126.127/treasure-hunt/api/',
   timeout: 3000,
 })
 
