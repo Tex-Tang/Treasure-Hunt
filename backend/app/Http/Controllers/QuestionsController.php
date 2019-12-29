@@ -24,9 +24,9 @@ class QuestionsController extends Controller
         ];
     }
 
-    public function generate() {
+    public function generate(Request $request) {
         $i = 1;
-        while($i <= 7) {
+        while($i <= $request->number) {
             Questions::create([
                 "content" => ("what is " . $i . " + " . $i . "?"),
                 "type" => 1,
@@ -44,73 +44,17 @@ class QuestionsController extends Controller
     {
         $user = Auth::user();
         $group_id = $user->group->id;
-        $counter = 4;
-        $questions_selected = array();
-        $data = array();
-        
-        // TODO: LOOK FOR BETTER WAY TO GET THE TOTAL NUMBER OF QUESTIONS
-        $total_questions = 0;
-        foreach(Questions::all() as $question) {
-            $total_questions += 1;
-        }
 
-        foreach(Group_questions::all() as $current_question) {
-            if ($current_question->group_id == $group_id && $current_question->score == -1) {
-                $counter -= 1; // current_question has been given, but has not been answered yet
-            }
-            if ($current_question->group_id == $group_id) {
-                $questions_selected[] = $current_question->question_id; // push_back question_id into questions_selected
-            }
-        }
+        $total_questions = Questions::count();
+        $assigned_questions_ids = Group_questions::where("group_id", $group_id)
+                                                    ->get()
+                                                    ->pluck("question_id");
 
-        // in case there are less than 4 unanswered questions
-        $counter = min($counter, $total_questions - count($questions_selected));
-        $index = rand(1, $total_questions);
+        // ensures counter doesn't exceed the number of questions left unanswered
+        $counter = min(4 - (Group_questions::where("group_id", $group_id)->where("score", -1)->get()->count()), 
+                       $total_questions - count($assigned_questions_ids)); 
 
-        while($counter > 0) {
-            if ($index > $total_questions) $index = 1; // reset index
-            if (in_array($index, $questions_selected)) {
-                $index += 1;
-                continue;
-            }
-            Group_questions::create([
-                "group_id" => $group_id, 
-                "question_id" => $index,
-                "answer" => "", 
-                "score" => -1, 
-                "status" => 1,
-            ]);
-            $questions_selected[] = $index; // pushback index into questions_selected array
-            $index += 1;
-            $counter -= 1;
-        }
-
-        foreach(Group_questions::all() as $current_question) {
-            // check for current_questions that have been assigned to group, but not answered yet
-            if ($current_question->group_id == $group_id && $current_question->score == -1) {
-                array_push($data, 
-                    array("id" => $current_question->question_id, 
-                        "content" => $current_question->question->content, 
-                        "score" => $current_question->question->score));
-            }
-        }
-        return [
-            "result" => "OK", 
-            "data" => $data, 
-        ];
-        /*
-        $group_id = Auth::user()->group->id;
-        $group_questions_id = Group_questions::where("group_id", $group_id)
-                                            ->select('question_id')
-                                            ->get()
-                                            ->flatten();
-        $uncompleted_questions = Group_questions::where("group_id", $group_id)
-                                                ->where("score", -1)
-                                                ->get();
-        $selected_questions = Questions::whereNotIn('question_id', $answered_questions_id)
-                                    ->get()
-                                    ->random(4 - $uncompleted_questions->count());
-        foreach($selected_questions as $question){
+        foreach(Questions::whereNotIn("id", $assigned_questions_ids)->get()->random($counter) as $question) {
             Group_questions::create([
                 "group_id" => $group_id, 
                 "question_id" => $question->id,
@@ -119,96 +63,92 @@ class QuestionsController extends Controller
                 "status" => 1,
             ]);
         }
-        $uncompleted_questions = Group_questions::where("group_id", $group_id)
-                                                ->where("score", -1)
-                                                ->get();
+
+        $uncompleted_questions_ids = Group_questions::where("group_id", $group_id)
+                                                    ->where("score", -1)
+                                                    ->get()
+                                                    ->pluck('question_id');
+
         return [
-            "result" => "OK",
-            "data" => $uncompleted_questions
-        ];
-        */
+            "result" => "OK", 
+            "data" => Questions::whereIn("id", $uncompleted_questions_ids)
+                                ->select(['id', 'content', 'score'])
+                                ->get(),
+        ];  
     }
 
     public function answer(Request $request) {
-        if (Auth::check() == false) {
+        $user = Auth::user();
+        $group = $user->group;
+        $group_id = $user->group->id;
+        $group_question = Group_questions::where('group_id', $group_id)
+                                        ->where('question_id', $request->id)
+                                        ->where('score', -1);
+
+        // check if request is valid
+        if ($group_question->exists() == false) {
+            $check = Group_questions::where('group_id', $group_id)
+                                    ->where('question_id', $request->id);
+
+            if ($request->id > Questions::count()) {
+                $error_message = "Invalid question id";
+            }
+            else if ($check->exists() && $check->get()->first()->score != -1) {
+                if ($check->get()->first()->score == 0) {
+                    $error_message = "Question has already been attempted three (3) times incorrectly";
+                }
+                else {
+                    $error_message = "Question has already been correctly answered";
+                }
+            }
+            else {
+                $error_message = "Question has not been assigned to group yet";
+            }
+
             return [
                 "result" => "FAIL",
+                "error_message" => $error_message,
             ];
         }
-        $user = Auth::user();
-        $group_id = $user->group->id;
+
+        $group_question = $group_question->get()->first();
         $flag = (Questions::find($request->id)->answer == $request->answer ? true : false);
         
-        if ($flag == true) {
-            $user->group->streak += 1;
-            $user->push();
-            $streak = $user->group->streak;
-            $delta = 80 + 20 * $streak;
-            foreach(Group_questions::all() as $question) {
-                if ($question->question_id == $request->id && $question->group_id == $group_id) {
-                    $question->score = $delta;
-                    $question->push();
-                }
-            }
-            foreach(Group_scores::all() as $scores) {
-                if ($scores->group_id == $group_id) {
-                    $scores->score += $delta;
-                    $scores->push();
-                }
-            }
+        if ($flag) {
+            $delta = 100 + 20 * $group->streak;
+            $group->streak += 1;
+            $group->push();
+
+            $group_question->score = $delta;
+            $group_question->push();
+
+            $group_score = Group_scores::find($group->id);
+            $group_score->score += $delta;
+            $group_score->push();
+
             return [
-                "result" => "OK", 
+                "result" => "OK",
                 "data" => [
                     "correct" => true,
                 ],
             ];
         }
         else {
-            $user->group->streak = 0;
-            $user->push();
-            foreach(Group_questions::all() as $question) {
-                if ($question->question_id == $request->id && $question->group_id == $group_id) {
-                    $current_status = $question->status;
-                    if ($current_status == 1 || $current_status == 2) {
-                        $question->status += 1;
-                    }
-                    else {
-                        $question->score = 0;
-                    }
-                    $question->push();
-                    return [
-                        "result" => "OK", 
-                        "data" => [
-                            "correct" => false,
-                        ],
-                    ];
-                }
+            $group->streak = 0;
+            $group->push();
+
+            $group_question->status += 1;
+            if ($group_question->status > 3) {
+                $group_question->score = 0;
             }
+            $group_question->push();
+
+            return [
+                "result" => "OK",
+                "data" => [
+                    "correct" => false,
+                ],
+            ];
         }
-        return [
-            "result" => "FAIL",
-        ];
-        /*
-        $question = Group_questions::where("question_id", $request->id)
-                                ->where("score", -1);
-        if($question->exists()){
-            $group_question = $question->first();
-            $group = Auth::user()->group;
-            if(Questions::find($question->question_id)->answer == $request->answer){
-                $group_question->score = 100 + 20 * $group->streak;
-                $group_question->save();
-                $group_score = Group_scores::find($group->id);
-                $group_score->score += 100 + 20 * $group->streak;
-                $group_score->save();
-                $group->streak++;
-                $group->save();
-            }else{
-                $group_question->status++;
-                $group_question->save();
-                $group->streak = 0;
-                $group->save();
-            }
-        }
-         */
     }
 }
