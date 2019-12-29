@@ -90,14 +90,43 @@ class QuestionsController extends Controller
             if ($current_question->group_id == $group_id && $current_question->score == -1) {
                 array_push($data, 
                     array("id" => $current_question->question_id, 
-                          "content" => $current_question->question->content, 
-                          "score" => $current_question->question->score));
+                        "content" => $current_question->question->content, 
+                        "score" => $current_question->question->score));
             }
         }
         return [
             "result" => "OK", 
             "data" => $data, 
         ];
+        /*
+        $group_id = Auth::user()->group->id;
+        $group_questions_id = Group_questions::where("group_id", $group_id)
+                                            ->select('question_id')
+                                            ->get()
+                                            ->flatten();
+        $uncompleted_questions = Group_questions::where("group_id", $group_id)
+                                                ->where("score", -1)
+                                                ->get();
+        $selected_questions = Questions::whereNotIn('question_id', $answered_questions_id)
+                                    ->get()
+                                    ->random(4 - $uncompleted_questions->count());
+        foreach($selected_questions as $question){
+            Group_questions::create([
+                "group_id" => $group_id, 
+                "question_id" => $question->id,
+                "answer" => "", 
+                "score" => -1, 
+                "status" => 1,
+            ]);
+        }
+        $uncompleted_questions = Group_questions::where("group_id", $group_id)
+                                                ->where("score", -1)
+                                                ->get();
+        return [
+            "result" => "OK",
+            "data" => $uncompleted_questions
+        ];
+        */
     }
 
     public function answer(Request $request) {
@@ -159,5 +188,27 @@ class QuestionsController extends Controller
         return [
             "result" => "FAIL",
         ];
+        /*
+        $question = Group_questions::where("question_id", $request->id)
+                                ->where("score", -1);
+        if($question->exists()){
+            $group_question = $question->first();
+            $group = Auth::user()->group;
+            if(Questions::find($question->question_id)->answer == $request->answer){
+                $group_question->score = 100 + 20 * $group->streak;
+                $group_question->save();
+                $group_score = Group_scores::find($group->id);
+                $group_score->score += 100 + 20 * $group->streak;
+                $group_score->save();
+                $group->streak++;
+                $group->save();
+            }else{
+                $group_question->status++;
+                $group_question->save();
+                $group->streak = 0;
+                $group->save();
+            }
+        }
+         */
     }
 }
