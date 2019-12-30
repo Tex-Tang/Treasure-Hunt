@@ -3,8 +3,8 @@
 		<div class="columns">
 			<router-link to="/game/question/1" tag="div" class="column col-6 question-box" v-for="i in 4" :key="i">
 				<div class="title">Question {{i}}</div>
-				<div class="content">
-					{{Question}}
+				<div class="content" v-for="questions in questions" :key="questions">
+					{{question}}
 				</div>
 			</router-link>
 		</div>
@@ -19,9 +19,9 @@ export default {
 			params: {
 				api_token: Cookies.get("API_TOKEN")
 			}
-		}).then(res => (
-			this.Question = res
-		))
+		}).then((res) => {
+			this.question = res
+		})
 	}
 }
 </script>
