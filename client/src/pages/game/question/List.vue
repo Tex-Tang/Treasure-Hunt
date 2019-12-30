@@ -3,8 +3,8 @@
 		<div class="columns">
 			<router-link to="/game/question/1" tag="div" class="column col-6 question-box" v-for="i in 4" :key="i">
 				<div class="title">Question {{i}}</div>
-				<div class="content" v-for="questions in questions" :key="questions">
-					{{question}}
+				<div class="content" v-for="question in questions" :key="question">
+					{{question.content}}
 				</div>
 			</router-link>
 		</div>
@@ -12,16 +12,17 @@
 </template>
 
 <script>
+import axios from 'axios'
 import Cookies from 'js-cookie'
 export default {
+	data(){
+		return{
+			questions: []
+		}
+	},
 	mounted(){
-		this.$http.get("/game/questions?api_token", {
-			params: {
-				api_token: Cookies.get("API_TOKEN")
-			}
-		}).then((res) => {
-			this.question = res
-		})
+		axios.get("/game/questions?api_token=fG9zFiPti68J9ajSpSxyg2k4ct9wKSE04vt3UpnKAfitZOGPZigwKdYZTUPTMMFAi38vNdpobycpe0LI")
+		.then(res => this.questions = res.data)
 	}
 }
 </script>
