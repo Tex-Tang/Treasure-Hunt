@@ -1,9 +1,9 @@
 <template>
 	<div class="questions">
 		<div class="columns">
-			<router-link to="/game/question/1" tag="div" class="column col-6 question-box" v-for="i in 4" :key="i">
-				<div class="title">Question {{i}}</div>
-				<div class="content" v-for="question in questions" :key="question">
+			<router-link :to="'/game/question/' + question.id" tag="div" class="column col-6 question-box" v-for="(question, i) in questions" :key="question.id">
+				<div class="title">Question {{i + 1}}</div>
+				<div class="content">
 					{{question.content}}
 				</div>
 			</router-link>
@@ -21,8 +21,15 @@ export default {
 		}
 	},
 	mounted(){
-		axios.get("/game/questions?api_token=fG9zFiPti68J9ajSpSxyg2k4ct9wKSE04vt3UpnKAfitZOGPZigwKdYZTUPTMMFAi38vNdpobycpe0LI")
-		.then(res => this.questions = res.data)
+		this.$http.get("/game/questions", {
+			params: {
+				api_token: Cookies.get("API_TOKEN")
+			}
+		}).then((res) => {
+			if(res.data.result != "FAIL"){
+				this.questions = res.data.data
+			}  
+    })
 	}
 }
 </script>
@@ -56,6 +63,7 @@ export default {
 			-webkit-line-clamp: 5;
 			-webkit-box-orient: vertical;  
 			transition: all 200ms;
+			height: 5.75rem;
 		}
 		&:hover{
 			.content{
