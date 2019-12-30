@@ -4,7 +4,7 @@
 			<router-link to="/game/question/1" tag="div" class="column col-6 question-box" v-for="i in 4" :key="i">
 				<div class="title">Question {{i}}</div>
 				<div class="content">
-					At the Puan Sri Datin Mae Cheng Basketball Court, Basketball, Volleyball and what else is allowed?
+					{{Question}}
 				</div>
 			</router-link>
 		</div>
@@ -12,8 +12,17 @@
 </template>
 
 <script>
+import Cookies from 'js-cookie'
 export default {
-
+	mounted(){
+		this.$http.get("/game/questions?api_token", {
+			params: {
+				api_token: Cookies.get("API_TOKEN")
+			}
+		}).then(res => (
+			this.Question = res
+		))
+	}
 }
 </script>
 
