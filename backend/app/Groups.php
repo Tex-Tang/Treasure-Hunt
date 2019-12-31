@@ -15,4 +15,8 @@ class Groups extends Model
     protected $fillable = [
         'group_name', 'user_id', 'streak', 
     ];
+
+    public function myScore() {
+        return $this->hasOne('App\Group_scores', 'group_id');
+    }
 }
