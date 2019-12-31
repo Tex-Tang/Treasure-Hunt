@@ -1,10 +1,10 @@
 <template>
 	<div class="questions">
 		<div class="columns">
-			<router-link to="/game/question/1" tag="div" class="column col-6 question-box" v-for="i in 4" :key="i">
-				<div class="title">Question {{i}}</div>
+			<router-link :to="'/game/question/' + question.id" tag="div" class="column col-6 question-box" v-for="(question, i) in questions" :key="question.id">
+				<div class="title">Question {{i + 1}}</div>
 				<div class="content">
-					At the Puan Sri Datin Mae Cheng Basketball Court, Basketball, Volleyball and what else is allowed?
+					{{question.content}}
 				</div>
 			</router-link>
 		</div>
@@ -12,8 +12,25 @@
 </template>
 
 <script>
+import axios from 'axios'
+import Cookies from 'js-cookie'
 export default {
-
+	data(){
+		return{
+			questions: []
+		}
+	},
+	mounted(){
+		this.$http.get("/game/questions", {
+			params: {
+				api_token: Cookies.get("API_TOKEN")
+			}
+		}).then((res) => {
+			if(res.data.result != "FAIL"){
+				this.questions = res.data.data
+			}  
+    })
+	}
 }
 </script>
 
@@ -46,6 +63,7 @@ export default {
 			-webkit-line-clamp: 5;
 			-webkit-box-orient: vertical;  
 			transition: all 200ms;
+			height: 5.75rem;
 		}
 		&:hover{
 			.content{
