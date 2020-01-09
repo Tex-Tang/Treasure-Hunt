@@ -19,8 +19,8 @@ class ScoresController extends Controller
         return [
             "result" => "OK",
             "data" => Groups::all()->map(function($group) {
-                        $group->score = $group->myScore->score;
-                        return $group;
+                    $group->score = $group->myScore->score;
+                    return $group;
                     })
         ];
     }

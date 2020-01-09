@@ -112,7 +112,9 @@ class QuestionsController extends Controller
         }
 
         $group_question = $group_question->get()->first();
-        $flag = (Questions::find($request->id)->answer == $request->answer ? true : false);
+        $answer_1 = Questions::find($request->id)->answer;
+        $answer_2 = $request->answer;
+        $flag = (preg_replace('/\s+/', '', strtolower($answer_1)) == preg_replace('/\s+/', '', strtolower($answer_2)) ? true : false);
         
         if ($flag) {
             $delta = 100 + 20 * $group->streak;
