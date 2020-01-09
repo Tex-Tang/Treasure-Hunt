@@ -16,12 +16,13 @@ class ScoresController extends Controller
      */
     public function show()
     {
+        $groups = Groups::all()->map(function($group) {
+                                    $group->score = $group->myScore->score;
+                                    return $group;
+                                });
         return [
             "result" => "OK",
-            "data" => Groups::all()->map(function($group) {
-                    $group->score = $group->myScore->score;
-                    return $group;
-                    })
+            "data" => $groups->sortByDesc('score')->values()->all(),
         ];
     }
  }
