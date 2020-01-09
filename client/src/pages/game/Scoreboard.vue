@@ -3,7 +3,7 @@
     <div class="score-list">
       <div class="score-box" v-for="(group,n) in groups" :key="n">
         <div class="rank">{{n + 1}}</div>
-        <div class="name">{{ group.groupname }}</div>
+        <div class="name">{{ group.group_name }}</div>
         <div class="score">{{ group.score }}</div>
       </div>
     </div>
