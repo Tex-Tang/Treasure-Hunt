@@ -58,7 +58,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'group_name' => ['required', 'string', 'max:255', 'unique:groups'],
             'group_members.*.name' => ['required', 'string'],
-            'group_members.*.student_id' => ['required', 'string', 'unique:group_members'],
+            'group_members.*.student_id' => ['required', 'string', 'unique:group_members', 'digits:5'],
         ]);
     }
 

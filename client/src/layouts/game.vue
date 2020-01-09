@@ -1,20 +1,20 @@
 <template>
 <div class="game-layout">
 	<div class="navbar" v-if="$route.name != 'Instruction'">
-		<div class="d-flex navbar-content">
-			<router-link class="btn btn-link" tag="div" to="/game/scoreboard"><i class="icon icon-menu"></i></router-link>
+		<div class="navbar-content">
+			<!--<router-link class="btn btn-link" tag="div" to="/game/scoreboard"><i class="icon icon-menu"></i></router-link>-->
 			<router-link class="title" tag="div" to="/game">Questions</router-link>
-			<div class="btn btn-link"><i class="icon icon-location"></i></div>
+			<!--<div class="btn btn-link"><i class="icon icon-location"></i></div>-->
 		</div>
 	</div>
   <div class="main-content">
     <router-view></router-view>
   </div>
   <div class="ranking-bar" v-if="$route.name == 'Questions'">
-		<div class="ranking-bar-content d-flex">
+		<router-link to="/game/scoreboard" tag="div" class="ranking-bar-content d-flex">
 			<div class="team-name">TEAM NAME</div>
 			<div class="rank">01</div>
-		</div>
+		</router-link>
 	</div>
 </div>
 </template>
@@ -52,14 +52,18 @@ export default {
 		left: 0;
 		width: 100%;
 		.navbar-content{
-			height: 2.5rem;
 			width: 100%;
-			justify-content: space-between;
-			align-items: center;
+			padding: .75rem 0;
+			//justify-content: space-between;
+			//align-items: center;
+			text-align: center;
 			.btn-link{
 				padding: 0 1rem;
 				height: auto;
 				color: black;
+			}
+			.title{
+				cursor: pointer;
 			}
 		}
 	}
