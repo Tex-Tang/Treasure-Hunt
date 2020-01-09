@@ -23,6 +23,7 @@ Route::middleware('auth:api')->group(function () {
         Auth::logout();
     });
     Route::get('game/questions', 'QuestionsController@show');
+    Route::get('game/question/{id}', 'QuestionsController@get_question');
     Route::post('game/question/answer', 'QuestionsController@answer');
 });
 

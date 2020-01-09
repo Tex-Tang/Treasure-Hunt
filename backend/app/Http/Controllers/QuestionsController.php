@@ -77,6 +77,30 @@ class QuestionsController extends Controller
         ];  
     }
 
+    public function get_question(Request $request) {
+        $question_id = $request->id;
+        $user = Auth::user();
+        $question = Group_questions::where('question_id', $question_id)->where('score', -1)->where('group_id', $user->group->id);
+        // question_id, content
+        if ($question->exists() == false) {
+            return [
+                "result" => "FAIL",
+                "data" => "dont hack our server thx",
+            ];
+        }
+        else {
+            $question = Questions::select(["id","content"])->where("id", $question->first()->question_id)->first();
+            return [
+                "result" => "OK",
+                "data" => $question,
+            ];
+        }
+        /*
+        test if question can currently be displayed to current user:
+            only if score for that question is -1
+        */
+    }
+
     public function answer(Request $request) {
         $user = Auth::user();
         $group = $user->group;
