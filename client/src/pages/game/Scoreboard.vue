@@ -1,18 +1,36 @@
 <template>
   <div class="scoreboard-page">
     <div class="score-list">
-      <div class="score-box" :class="n == 4 ? 'active' : ''" v-for="n in 10" :key="n">
-        <div class="rank">{{n}}</div>
-        <div class="name">Hello World</div>
-        <div class="score">290</div>
+      <div class="score-box" v-for="(group,n) in groups" :key="n">
+        <div class="rank">{{n + 1}}</div>
+        <div class="name">{{ group.groupname }}</div>
+        <div class="score">{{ group.score }}</div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
+import Cookies from 'js-cookie'
 export default {
-
+	data(){
+		return{
+			groups: []
+		}
+	},
+	mounted(){
+		this.$http.get("/game/scoreboard", {
+			params: {
+				api_token: Cookies.get("API_TOKEN")
+			}
+		}).then((res) => {
+			if(res.data.result != "FAIL"){
+        this.groups = res.data.data
+        this.groups.sort((a, b) => { a.score > b.score });
+			}  
+    })
+	}
 }
 </script>
 

@@ -41,8 +41,8 @@ export default {
 	}
 	.back-btn{
 		position: fixed;
-		top: 4rem;
-		left: 1.2rem;
+		top: .5rem;
+		left: .5rem;
 	}
 }
 </style>

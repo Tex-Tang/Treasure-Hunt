@@ -42,6 +42,9 @@ export default {
   justify-content: center;
   height: 100vh;
   width: 100%;
+	.columns{
+		margin-bottom: 4rem;
+	}
 	.question-box{
 		height: 7rem;
 		border: solid .05rem black;
