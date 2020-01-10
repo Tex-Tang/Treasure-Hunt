@@ -51,6 +51,7 @@ export default {
 					}
 				}else{
 					alert(res.data.error_message)
+					this.$router.push('/game')
 				}
 			})
 		}
