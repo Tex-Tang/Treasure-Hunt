@@ -1,5 +1,8 @@
 <template>
   <div class="scoreboard-page">
+    <router-link to="/game" class="btn btn-link back-btn" tag="a">
+			<i class="icon icon-back"></i>
+		</router-link>
     <div class="score-list">
       <div class="score-box" v-for="(group,n) in groups" :key="n">
         <div class="rank">{{n + 1}}</div>
@@ -55,5 +58,10 @@ export default {
       color: white;
     }
   }
+  .back-btn{
+		position: fixed;
+		top: .5rem;
+		left: .5rem;
+	}
 }
 </style>
