@@ -11,7 +11,7 @@
         <div class="column col-12">
           <p class="strong" style="margin: 1rem 0 .5rem 0;">Group members</p>
           <div class="columns" v-for="(member, ind) in data.group_members" :key="'member-' + ind">
-            <div class="column col-6">
+            <div class="column col-12">
               <div class="form-group">
                 <input type="text" class="form-input" placeholder="Name" v-model="member.name">
               </div>
