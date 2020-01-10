@@ -23,7 +23,9 @@
 import Cookies from 'js-cookie'
 export default {
 	data:() => ({
-		user: null,
+		user: {
+			group: {}
+		},
 		groups: []
 	}),
 	mounted(){
