@@ -42,4 +42,17 @@ class GeneralController extends Controller
             "data" => $data,
         ];
     }
+
+    public function show_user() {
+        $user = Auth::user();
+        return [
+            "result" => "OK",
+            "data" => [
+                "name" => $user->name,
+                "username" => $user->username,
+                "api_token" => $user->api_token,
+                "group" => $user->group
+            ]
+        ];
+    }
 }
