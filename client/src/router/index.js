@@ -40,6 +40,11 @@ const router = new VueRouter({
           component: () => import('../pages/game/Instruction.vue')
         },
         {
+          name: 'GameInstruction',
+          path: 'gameinstruction',
+          component: () => import('../pages/game/GameInstruction.vue')
+        },
+        {
           name: 'Questions',
           path: '',
           component: () => import('../pages/game/question/List.vue')

@@ -17,7 +17,7 @@ class GroupMembersTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('group_id');
             $table->string('name');
-            $table->string('student_id', 5)->unique();
+        //    $table->string('student_id', 5)->unique();
             $table->timestamps();
         });
     }

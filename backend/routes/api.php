@@ -16,9 +16,7 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::middleware('auth:api')->group(function () {
-    Route::get('user', function (Request $request) {
-        return Auth::user();
-    });
+    Route::get('user', 'GeneralController@show_user');
     Route::post('logout', function (){ 
         Auth::logout();
     });

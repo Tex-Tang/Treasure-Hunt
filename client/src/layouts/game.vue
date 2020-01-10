@@ -12,8 +12,8 @@
   </div>
   <div class="ranking-bar" v-if="$route.name == 'Questions'">
 		<router-link to="/game/scoreboard" tag="div" class="ranking-bar-content d-flex">
-			<div class="team-name">TEAM NAME</div>
-			<div class="rank">01</div>
+			<div class="team-name">{{ user.group.group_name }}</div>
+			<div class="rank">{{ user ? (groups.findIndex(g => g.id == user.group.id) + 1).toString().padStart(2,0) : "" }}</div>
 		</router-link>
 	</div>
 </div>
@@ -23,7 +23,10 @@
 import Cookies from 'js-cookie'
 export default {
 	data:() => ({
-		name: "",
+		user: {
+			group: {}
+		},
+		groups: []
 	}),
 	mounted(){
 		this.$http.get("/user", {
@@ -31,12 +34,27 @@ export default {
 				api_token: Cookies.get("API_TOKEN")
 			}
 		}).then((res) => {
-			this.name = res.data.data.name
+			this.user = res.data.data
+			setInterval(this.updateScoreboard, 1000)
 		}).catch((err) => {
 			if(err.response && err.response.status == 401){
 				this.$router.push("/")
 			}
 		})
+	},
+	methods:{
+		updateScoreboard () {
+			this.$http.get("/game/scoreboard", {
+				params: {
+					api_token: Cookies.get("API_TOKEN")
+				}
+			}).then((res) => {
+				if(res.data.result != "FAIL"){
+					this.groups = res.data.data
+					this.groups.sort((a, b) => { a.score > b.score });
+				}  
+			})
+		}
 	}
 }
 </script>

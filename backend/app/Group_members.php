@@ -12,6 +12,6 @@ class Group_members extends Model
      * @var array
      */
     protected $fillable = [
-        'group_id', 'name', 'student_id', 
+        'group_id', 'name', 
     ];
 }
