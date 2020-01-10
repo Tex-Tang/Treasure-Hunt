@@ -5,10 +5,10 @@
 			<i class="icon icon-back"></i>
 		</router-link>
 		<div class="question">
-			At the Puan Sri Datin Mae Cheng Basketball Court, Basketball, Volleyball and what else is allowed?
+			{{question.content}}
 		</div>
-		<form class="form">
-			<input class="form-input" type="text" placeholder="Answer">
+		<form class="form" @submit.prevent="submitAnswer">
+			<input class="form-input" type="text" placeholder="Answer" v-model="answer">
 			<div class="btn btn-primary">Submit</div>
 		</form>
 	</div>
@@ -16,9 +16,44 @@
 </template>
 
 <script>
+import axios from 'axios'
+import Cookies from 'js-cookie'
 export default {
+	data(){
+		return{
+			question: {},
+			answer: ""
+		}
+	},
 	mounted(){
-		console.log(this.$route)
+		this.$http.get("/game/question/" + this.$route.params.id, {
+			params: {
+				api_token: Cookies.get("API_TOKEN")
+			}
+		}).then((res) => {
+			if(res.data.result != "FAIL"){
+				this.question = res.data.data
+			}  
+    })
+	},
+	methods:{
+		submitAnswer () {
+			this.$http.post("/game/question/answer?api_token=" + Cookies.get("API_TOKEN"), {
+				id: this.$route.params.id,
+				answer: this.answer
+			}).then((res) => {
+				if(res.data.result != "FAIL"){
+					if(res.data.data.correct){
+						alert("Correct!")
+						this.$router.push('/game')
+					}else{
+						alert("Wrong answer!")
+					}
+				}else{
+					alert(res.data.error_message)
+				}
+			})
+		}
 	}
 }
 </script>

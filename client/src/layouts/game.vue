@@ -37,6 +37,20 @@ export default {
 				this.$router.push("/")
 			}
 		})
+	},
+	methods:{
+		updateScoreboard () {
+			this.$http.get("/game/scoreboard", {
+				params: {
+					api_token: Cookies.get("API_TOKEN")
+				}
+			}).then((res) => {
+				if(res.data.result != "FAIL"){
+					this.groups = res.data.data
+					this.groups.sort((a, b) => { a.score > b.score });
+				}  
+			})
+		}
 	}
 }
 </script>

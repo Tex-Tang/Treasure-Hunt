@@ -17,7 +17,7 @@ class QuestionsTable extends Migration
             $table->bigIncrements('id');
             $table->string('content');
             $table->smallInteger('type');
-            $table->integer('answer');
+            $table->string('answer');
             $table->integer('score');
             $table->timestamps();
         });
