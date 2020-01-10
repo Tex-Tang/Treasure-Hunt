@@ -16,11 +16,13 @@
                 <input type="text" class="form-input" placeholder="Name" v-model="member.name">
               </div>
             </div>
+            <!--
             <div class="column col-6">
               <div class="form-group">
                 <input type="text" class="form-input" placeholder="Student ID" v-model="member.student_id">
               </div>
             </div>
+            -->
           </div>
         </div>
       </div>
@@ -36,10 +38,10 @@ export default {
     data: {
       group_name: "",
       group_members: [
-        { name: "", student_id: "" },
-        { name: "", student_id: "" },
-        { name: "", student_id: "" },
-        { name: "", student_id: "" }
+        { name: "" },//, student_id: "" },
+        { name: "" },//, student_id: "" },
+        { name: "" },//, student_id: "" },
+        { name: "" }//, student_id: "" }
       ]
     }
   }),
