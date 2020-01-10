@@ -14,3 +14,5 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('please_dont_do_this_to_us_thanks', 'GeneralController@beg_for_our_lives');

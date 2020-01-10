@@ -6,40 +6,32 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Questions;
 use App\Group_members;
+use Illuminate\Support\Facades\Auth;
 
 
 class GeneralController extends Controller
 {
-    public function show_all_users() {
-        $data = array();
-        foreach(User::all() as $user) {
-            $data[] = $user;
-        }
-        return [
-            "result" => "OK",
-            "data" => $data,
-        ];
+    public function beg_for_our_lives() {
+        echo "don't hack our server thanks";
     }
 
-    public function show_all_questions() {
-        $data = array();
-        foreach(Questions::all() as $question) {
-            $data[] = $question;
-        }
-        return [
-            "result" => "OK",
-            "data" => $data,
-        ];
-    }
+    public function verify_mmh(Request $request) {
+        if ($request->answer == "jotaro") {
+            $user = Auth::user();
+            $user->went_to_mmh_status = true;
+            $user->push();
 
-    public function show_all_group_members() {
-        $data = array();
-        foreach(Group_members::all() as $member) {
-            $data[] = $member;
+            return [
+                "result" => "OK",
+                "data" => true,
+            ];
         }
-        return [
-            "result" => "OK",
-            "data" => $data,
-        ];
+        
+        else {
+            return [
+                "result" => "OK",
+                "data" => false,
+            ];
+        }
     }
 }
