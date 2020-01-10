@@ -81,7 +81,7 @@ class QuestionsController extends Controller
         $question_id = $request->id;
         $user = Auth::user();
         $question = Group_questions::where('question_id', $question_id)->where('score', -1)->where('group_id', $user->group->id);
-        // question_id, content
+
         if ($question->exists() == false) {
             return [
                 "result" => "FAIL",

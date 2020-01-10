@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Questions;
 use App\Group_members;
-use Illuminate\Support\Facades\Auth;
 
 
 class GeneralController extends Controller
@@ -30,7 +29,7 @@ class GeneralController extends Controller
         
         else {
             return [
-                "result" => "OK",
+                "result" => "FAIL",
                 "data" => false,
             ];
         }
