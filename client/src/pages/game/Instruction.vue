@@ -1,19 +1,45 @@
 <template>
   <div class="instruction-page">
     <h4>SIGN UP<br>SUCCESSFUL</h4>
-    <p>Before beginning the hunt, please head to Mabel Marsh Hall to have your photo taken and acquire an access code to begin the hunt</p>
-    <p>For Questions 1-4, type names in FULL of the following MCKL Staff.
-       <br>
-       For Questions that require quantities,please only input numerals.
-       <br>
-       For this Treasure Hunt, a live scoreboard with your score and placing will be displayed. Also, groups getting consecutive correct answers will also be awarded extra points. </p>
-    <router-link to="/game/" tag="div" class="btn btn-primary">Proceed</router-link>
+    <p>
+      Get to the Mabel Marsh Hall as soon as possible!
+    <br>
+    <br>
+      Once there, be patient and follow the instructions of the Orientation Facilitators.
+    <br>
+      When you are done, obtain the code from the Orientation Facilitators to proceed.
+    </p>
+    <br>
+    <form class="form">
+      <input class="form-input" type="text" placeholder="Enter Code" v-model="answer">
+      <router-link to="/game/gameinstruction/" tag="div" class="btn btn-primary">Proceed</router-link>
+    </form>
   </div>
 </template>
 
 <script>
+import Cookies from 'js-cookie'
 export default {
-
+  methods:{
+    submitAnswer () {
+      this.$http.post("/game/GameInstruction/answer?api_token=" + Cookies.get("API_TOKEN"), {
+        id: this.$route.params.id,
+        answer: this.answer
+      }).then((res) => {
+        if(res.data.result != "FAIL"){
+          if(res.data.data.correct){
+            alert("Proceed")
+            this.$router.push('/game/GameInstruction')
+          }else{
+            alert("Wrong code!")
+          }
+        }else{
+          alert(res.data.error_message)
+          this.$router.push('/game/GameInstruction')
+        }
+      })
+    }
+  }
 }
 </script>
 
