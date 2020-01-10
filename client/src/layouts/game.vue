@@ -13,7 +13,7 @@
   <div class="ranking-bar" v-if="$route.name == 'Questions'">
 		<router-link to="/game/scoreboard" tag="div" class="ranking-bar-content d-flex">
 			<div class="team-name">{{ user.group.group_name }}</div>
-			<div class="rank">{{ (groups.findIndex(g => g.id == user.group.id) + 1).toString().padStart(2,0) }}</div>
+			<div class="rank">{{ user ? (groups.findIndex(g => g.id == user.group.id) + 1).toString().padStart(2,0) : "" }}</div>
 		</router-link>
 	</div>
 </div>
