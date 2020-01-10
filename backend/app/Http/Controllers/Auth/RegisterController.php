@@ -93,6 +93,7 @@ class RegisterController extends Controller
             "name" => $data['group_name'],
             "username" => $username,
             "password" => Hash::make($password),
+            "went_to_mmh_status" => false,
             "api_token" => $token,
         ]);
         $group = Groups::create([
