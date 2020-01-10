@@ -9,7 +9,7 @@
 		</div>
 		<form class="form" @submit.prevent="submitAnswer">
 			<input class="form-input" type="text" placeholder="Answer" v-model="answer">
-			<div class="btn btn-primary">Submit</div>
+			<button type="submit" class="btn btn-primary">Submit</button>
 		</form>
 	</div>
 </div>
