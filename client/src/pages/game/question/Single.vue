@@ -8,7 +8,7 @@
 			{{question.content}}
 		</div>
 		<form class="form" @submit.prevent="submitAnswer">
-			<input class="form-input" type="text" placeholder="Answer" v-model="answer">
+			<input class="form-input" :placeholder="question.hint" type="text" v-model="answer">
 			<button type="submit" class="btn btn-primary">Submit</button>
 		</form>
 	</div>
@@ -21,7 +21,10 @@ import Cookies from 'js-cookie'
 export default {
 	data(){
 		return{
-			question: {},
+			question: {
+				content: "",
+				hint: "",
+			},
 			answer: ""
 		}
 	},
