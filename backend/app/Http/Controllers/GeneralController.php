@@ -30,7 +30,7 @@ class GeneralController extends Controller
         }
         else {
             return [
-                "result" => "FAIL",
+                "result" => "OK",
                 "data" => [
                     "correct" => false,
                 ],
