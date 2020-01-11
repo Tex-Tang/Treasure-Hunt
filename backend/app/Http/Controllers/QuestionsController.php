@@ -89,7 +89,7 @@ class QuestionsController extends Controller
             ];
         }
         else {
-            $question = Questions::select(["id","content", "hint"])->where("id", $question->first()->question_id)->first();
+            $question = Questions::select(["id","content", "hint"])->where("id", $question_id)->first();
             return [
                 "result" => "OK",
                 "data" => $question,
