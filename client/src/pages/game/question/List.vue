@@ -1,12 +1,15 @@
 <template>
 	<div class="questions">
-		<div class="columns">
+		<div class="columns" v-if="questions.length != 0">
 			<router-link :to="'/game/question/' + question.id" tag="div" class="column col-6 question-box" v-for="(question, i) in questions" :key="question.id">
 				<div class="title">Question {{i + 1}}</div>
 				<div class="content">
 					{{question.content}}
 				</div>
 			</router-link>
+		</div>
+		<div class="board" v-else>
+			Thanks for playing our game.
 		</div>
 	</div>
 </template>
