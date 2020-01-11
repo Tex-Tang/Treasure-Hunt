@@ -72,9 +72,10 @@ export default {
 	updated () {
 		if(this.user.active == false && this.$route.name != "MMHActive"){
 			this.$router.push('/game/mmhactive')
-			this.$parent.updateUser()
+			this.updateUser()
+		}else if(this.$route.name == "MMHActive" && this.user.active){
+			this.$router.push('/game')
 		}
-		console.log(this.$route)
 	}
 }
 </script>

@@ -23,6 +23,11 @@ export default {
   data: () => ({
     answer : "",
   }),
+  mounted () {
+    if(this.$parent.user.active){
+      this.$router.push('/game')
+    }
+  },
   methods:{
     submitAnswer () {
       this.$http.post("/game/instruction/answer?api_token=" + Cookies.get("API_TOKEN"), {
@@ -31,7 +36,8 @@ export default {
         if(res.data.result != "FAIL"){
           if(res.data.data.correct){
             alert("Proceed")
-            this.$router.push('/game')
+            this.$parent.user.active = true
+            this.$router.push('/game/instruction')
           }
           else{
             alert("Wrong code!")
