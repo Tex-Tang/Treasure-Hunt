@@ -12,6 +12,6 @@ class Questions extends Model
      * @var array
      */
     protected $fillable = [
-        'content', 'type', 'answer', 'score', 
+        'content', 'type', 'answer', 'score', 'hint',
     ];
 }
