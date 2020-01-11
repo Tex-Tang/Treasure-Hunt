@@ -19,7 +19,6 @@ class QuestionsTable extends Migration
             $table->smallInteger('type');
             $table->string('answer');
             $table->integer('score');
-            $table->string('hint')->nullable();
             $table->timestamps();
         });
     }
