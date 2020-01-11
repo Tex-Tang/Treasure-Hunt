@@ -3,7 +3,7 @@
 	<div class="navbar" v-if="$route.name != 'Instruction'">
 		<div class="navbar-content">
 			<!--<router-link class="btn btn-link" tag="div" to="/game/scoreboard"><i class="icon icon-menu"></i></router-link>-->
-			<router-link class="title" tag="div" to="/game">Questions</router-link>
+			<router-link class="title" tag="div" to="/game" v-if="$route.name != 'MMHAnswer'">Questions</router-link>
 			<!--<div class="btn btn-link"><i class="icon icon-location"></i></div>-->
 		</div>
 	</div>
@@ -35,7 +35,7 @@ export default {
 			}
 		}).then((res) => {
 			this.user = res.data.data
-			setInterval(this.updateScoreboard, 1000)
+			setInterval(this.updateScoreboard, 5000)
 		}).catch((err) => {
 			if(err.response && err.response.status == 401){
 				this.$router.push("/")
@@ -54,6 +54,27 @@ export default {
 					this.groups.sort((a, b) => { a.score > b.score });
 				}  
 			})
+		},
+		updateUser () {
+			this.$http.get("/user", {
+				params: {
+					api_token: Cookies.get("API_TOKEN")
+				}	
+			}).then((res) => {
+				this.user = res.data.data
+			}).catch((err) => {
+				if(err.response && err.response.status == 401){
+					this.$router.push("/")
+				}
+			})
+		}
+	},
+	updated () {
+		if(this.user.active == false && this.$route.name != "MMHActive"){
+			this.$router.push('/game/mmhactive')
+			this.updateUser()
+		}else if(this.$route.name == "MMHActive" && this.user.active){
+			this.$router.push('/game')
 		}
 	}
 }

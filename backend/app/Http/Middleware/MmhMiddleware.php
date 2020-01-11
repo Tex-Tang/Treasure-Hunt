@@ -16,7 +16,7 @@ class MmhMiddleware
      */
     public function handle($request, Closure $next)
     {   
-        if (Auth::user()->went_to_mmh_status == true) {
+        if (Auth::user()->active == true) {
             return $next($request);
         }
 

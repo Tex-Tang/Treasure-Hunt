@@ -18,19 +18,22 @@ class GeneralController extends Controller
     public function verify_mmh(Request $request) {
         if ($request->answer == "jotaro") {
             $user = Auth::user();
-            $user->went_to_mmh_status = true;
+            $user->active = true;
             $user->push();
 
             return [
                 "result" => "OK",
-                "data" => true,
+                "data" => [
+                    "correct" => true,
+                ],
             ];
         }
-        
         else {
             return [
-                "result" => "FAIL",
-                "data" => false,
+                "result" => "OK",
+                "data" => [
+                    "correct" => false,
+                ],
             ];
         }
     }
@@ -43,6 +46,7 @@ class GeneralController extends Controller
                 "name" => $user->name,
                 "username" => $user->username,
                 "api_token" => $user->api_token,
+                "active" => $user->active,
                 "group" => $user->group
             ]
         ];

@@ -35,14 +35,19 @@ const router = new VueRouter({
       component: () => import('../layouts/game.vue'),
       children: [
         {
+          name: 'MMHActive',
+          path: 'mmhactive',
+          component: () => import('../pages/game/MMHActive.vue')
+        },
+        /*{
           name: 'Instruction',
           path: 'instruction',
           component: () => import('../pages/game/Instruction.vue')
-        },
+        },*/
         {
-          name: 'GameInstruction',
-          path: 'gameinstruction',
-          component: () => import('../pages/game/GameInstruction.vue')
+          name: 'Instruction',
+          path: 'instruction',
+          component: () => import('../pages/game/Instruction.vue')
         },
         {
           name: 'Questions',
@@ -60,6 +65,10 @@ const router = new VueRouter({
           component: () => import('../pages/game/Scoreboard.vue')
         },
       ]
+    },
+    {
+      path: "*",
+      redirect: "/login"
     }
   ]
 })
