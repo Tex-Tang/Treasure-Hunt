@@ -2,6 +2,7 @@
   <div class="instruction-page">
     <h4>Game Instructions</h4>
     <p>
+    
     <ul>
         <li>For each question, you will be given 3 chances to right answer, after the 3rd attempt the question will be automaticaly removed and no points will be awarded.</li>
         <li>If your group submits consecutive correct answers, bonus points will be awarded.</li>
