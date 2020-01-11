@@ -10,7 +10,7 @@
         <li>For answers involving QUANTITIES, please input numerals. Eg. 10, 200 etc </li>
         <li>Pay attention to the hints given to validate your answers.</li>
         <li>For this Treasure Hunt, a live scoreboard with your score and placing will be displayed right under the questions. </li>
-        <li>The 1st place will be awarde da special prize.</li>
+        <li>The 1st place will be awarde the special prize.</li>
     </ul>
     </p>
 

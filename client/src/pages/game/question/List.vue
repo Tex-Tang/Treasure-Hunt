@@ -9,7 +9,11 @@
 			</router-link>
 		</div>
 		<div class="board" v-else>
-			Thanks for playing our game.
+			<p>Thank you for playing our game.
+				<br>
+				If you like to create stuff like this, you are welcome to join the computer programming club. Look for us on All Clubs Day.
+				<br>
+				Thats all, you are dismissed.
 		</div>
 	</div>
 </template>
