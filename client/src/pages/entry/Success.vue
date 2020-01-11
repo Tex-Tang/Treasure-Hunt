@@ -10,7 +10,7 @@
       <label class="form-label">Password</label>
       <p v-text="password"></p>
     </div>
-    <router-link to="/game/instruction" tag="div" class="btn btn-primary">Proceed</router-link>
+    <router-link to="/game/mmhactive" tag="div" class="btn btn-primary">Proceed</router-link>
   </div>
 </template>
 

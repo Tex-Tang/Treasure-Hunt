@@ -1,45 +1,25 @@
 <template>
   <div class="instruction-page">
-    <h4>SIGN UP<br>SUCCESSFUL</h4>
+    <h4>Game Instructions</h4>
     <p>
-      Get to the Mabel Marsh Hall as soon as possible!
-    <br>
-    <br>
-      Once there, be patient and follow the instructions of the Orientation Facilitators.
-    <br>
-      When you are done, obtain the code from the Orientation Facilitators to proceed.
+    <ul>
+        <li>For each question, you will be given 3 chances to right answer, after the 3rd attempt the question will be automaticaly removed and no points will be awarded.</li>
+        <li>If your group submits consecutive correct answers, bonus points will be awarded.</li>
+        <li>For answers involving the NAMES of MCKL Staff, please type names in FULL.</li>
+        <li>For answers involving QUANTITIES, please input numerals. Eg. 100, 200 etc </li>
+        <li>If there are one or more right answers for the question, only enter one answer.</li>
+        <li>For this Treasure Hunt, a live scoreboard with your score and placing will be displayed right under the questions. </li>
+        <li>The 1st place will be awarded a special prize.</li>
+    </ul>
     </p>
-    <br>
-    <form class="form">
-      <input class="form-input" type="text" placeholder="Enter Code" v-model="answer">
-      <router-link to="/game/gameinstruction/" tag="div" class="btn btn-primary">Proceed</router-link>
-    </form>
+
+    <router-link to="/game/" tag="div" class="btn btn-primary">Proceed</router-link>
   </div>
 </template>
 
 <script>
-import Cookies from 'js-cookie'
 export default {
-  methods:{
-    submitAnswer () {
-      this.$http.post("/game/GameInstruction/answer?api_token=" + Cookies.get("API_TOKEN"), {
-        id: this.$route.params.id,
-        answer: this.answer
-      }).then((res) => {
-        if(res.data.result != "FAIL"){
-          if(res.data.data.correct){
-            alert("Proceed")
-            this.$router.push('/game/GameInstruction')
-          }else{
-            alert("Wrong code!")
-          }
-        }else{
-          alert(res.data.error_message)
-          this.$router.push('/game/GameInstruction')
-        }
-      })
-    }
-  }
+
 }
 </script>
 
