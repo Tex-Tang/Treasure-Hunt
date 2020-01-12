@@ -8,7 +8,7 @@
 			{{question.content}}
 		</div>
 		<form class="form" @submit.prevent="submitAnswer">
-			<input class="form-input" type="text" placeholder="Answer" v-model="answer">
+			<textarea class="form-input answer-box" :placeholder="question.hint" type="text" v-model="answer"></textarea>
 			<button type="submit" class="btn btn-primary">Submit</button>
 		</form>
 	</div>
@@ -21,7 +21,10 @@ import Cookies from 'js-cookie'
 export default {
 	data(){
 		return{
-			question: {},
+			question: {
+				content: "",
+				hint: "",
+			},
 			answer: ""
 		}
 	},
@@ -47,6 +50,7 @@ export default {
 						alert("Correct!")
 						this.$router.push('/game')
 					}else{
+						this.answer = ""
 						alert("Wrong answer!")
 					}
 				}else{
@@ -68,10 +72,15 @@ export default {
   width: 100%;
 }
 .question-page{
+	width: 270px;
 	.form{
+		margin: 0;
 		margin-top: 1rem;
 		.btn{
 			margin-top: .5rem;
+			width: 100%;
+		}
+		.answer-box{
 			width: 100%;
 		}
 	}
