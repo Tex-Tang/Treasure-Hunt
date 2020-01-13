@@ -85,8 +85,7 @@ class RegisterController extends Controller
                 "data" => $validator->errors()
             ];
         }
-        //$username = strtolower(preg_replace('/\s+/', '', $data['group_name']));
-        $username = $data['group_name'];
+        $username = strtolower(preg_replace('/\s+/', '', $data['group_name']));
         if (User::where("username", $username)->exists == true) {
             return [
                 "data" => "username is already taken",
