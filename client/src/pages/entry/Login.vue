@@ -8,7 +8,7 @@
       <div class="columns">
         <div class="column col-12">
           <div class="form-group">
-            <input type="text" class="form-input" placeholder="Login ID" v-model="data.username">
+            <input type="text" class="form-input" placeholder="Username ID" v-model="data.username">
           </div>
         </div>
         <div class="column col-12">

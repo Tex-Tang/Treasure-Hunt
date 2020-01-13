@@ -11,7 +11,7 @@ import './assets/scss/spectre/spectre-icons.scss'
 
 Vue.prototype.$http = axios.create({
   baseURL: process.env.NODE_ENV == "development" ? "http://68.183.227.20/api/" : "/api/",
-  timeout: 3000,
+  timeout: 10000,
 })
 new Vue({
   router,
