@@ -1,5 +1,5 @@
 <template>
-	<div class="questions">
+	<div class="questions loading-lg" :class="{'loading': loading}">
 		<div class="columns" v-if="questions.length != 0">
 			<router-link :to="'/game/question/' + question.id" tag="div" class="column col-6 question-box" v-for="(question, i) in questions" :key="question.id">
 				<div class="title">Question {{i + 1}}</div>
@@ -24,7 +24,8 @@ import Cookies from 'js-cookie'
 export default {
 	data(){
 		return{
-			questions: []
+			questions: [],
+			loading: true,
 		}
 	},
 	mounted(){
@@ -33,6 +34,7 @@ export default {
 				api_token: Cookies.get("API_TOKEN")
 			}
 		}).then((res) => {
+			this.loading = false
 			if(res.data.result != "FAIL"){
 				this.questions = res.data.data
 			}  
