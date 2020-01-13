@@ -85,7 +85,8 @@ class RegisterController extends Controller
                 "data" => $validator->errors()
             ];
         }
-        $username = strtolower(preg_replace('/\s+/', '', $data['group_name']));
+        //$username = strtolower(preg_replace('/\s+/', '', $data['group_name']));
+        $username = $data['group_name'];
         $password = Str::random(8);
         $token = Str::random(80);
         $user = User::create([
