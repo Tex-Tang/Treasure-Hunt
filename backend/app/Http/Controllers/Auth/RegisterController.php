@@ -86,7 +86,7 @@ class RegisterController extends Controller
             ];
         }
         $username = strtolower(preg_replace('/\s+/', '', $data['group_name']));
-        if (User::where("username", $username)->exists == true) {
+        if (User::where("username", $username)->exists() == true) {
             return [
                 "data" => "username is already taken",
             ];
