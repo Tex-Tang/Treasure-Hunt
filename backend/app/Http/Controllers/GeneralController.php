@@ -16,7 +16,7 @@ class GeneralController extends Controller
     }
 
     public function verify_mmh(Request $request) {
-        if ($request->answer == "jotaro") {
+        if (preg_replace('/\s+/', '', strtolower($request->answer)) == "donthack") {
             $user = Auth::user();
             $user->active = true;
             $user->push();
