@@ -48,9 +48,9 @@ export default {
   methods: {
     register: function() {
       this.$http.post("register", this.data).then((data) => {
-        if(data.result == "FAIL") alert("username is already taken. choose another one");
-        if(data.data.result == "FAIL") this.error = true;
-        else{
+        if(data.data.result == "FAIL"){
+          alert(data.data.data.group_name)
+        } else{
           Cookies.set('API_TOKEN', data.data.data.token)
           this.$parent.username = data.data.data.username
           this.$parent.password = data.data.data.password

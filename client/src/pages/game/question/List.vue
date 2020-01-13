@@ -14,6 +14,7 @@
 				If you like to create stuff like this, you are welcome to join the computer programming club. Look for us on All Clubs Day.
 				<br>
 				Thats all, you are dismissed.
+			</p>
 		</div>
 	</div>
 </template>
