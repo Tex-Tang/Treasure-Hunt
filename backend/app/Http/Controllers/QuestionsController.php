@@ -140,6 +140,9 @@ class QuestionsController extends Controller
         $answer_2 = $request->answer;
         $flag = (preg_replace('/\s+/', '', strtolower($answer_1)) == preg_replace('/\s+/', '', strtolower($answer_2)) ? true : false);
         
+        $group_question->answer = $request->answer;
+        $group_question->push();
+
         if ($flag) {
             $delta = 100 + 20 * $group->streak;
             $group->streak += 1;
