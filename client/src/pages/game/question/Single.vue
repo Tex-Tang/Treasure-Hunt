@@ -1,6 +1,6 @@
 <template>
 <div class="container">
-  <div class="question-page">
+  <div class="question-page" :class="{'loading': loading}">
 		<router-link to="/game" class="btn btn-link back-btn" tag="a">
 			<i class="icon icon-back"></i>
 		</router-link>
@@ -8,7 +8,7 @@
 			{{question.content}}
 		</div>
 		<form class="form" @submit.prevent="submitAnswer">
-			<textarea class="form-input answer-box" :placeholder="question.hint" type="text" v-model="answer"></textarea>
+			<textarea rows="4" class="form-input answer-box" :placeholder="question.hint" type="text" v-model="answer"></textarea>
 			<button type="submit" class="btn btn-primary">Submit</button>
 		</form>
 	</div>
@@ -25,7 +25,8 @@ export default {
 				content: "",
 				hint: "",
 			},
-			answer: ""
+			answer: "",
+			loading: true,
 		}
 	},
 	mounted(){
@@ -34,6 +35,7 @@ export default {
 				api_token: Cookies.get("API_TOKEN")
 			}
 		}).then((res) => {
+			this.loading = false;
 			if(res.data.result != "FAIL"){
 				this.question = res.data.data
 			}  
