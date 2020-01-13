@@ -87,6 +87,11 @@ class RegisterController extends Controller
         }
         //$username = strtolower(preg_replace('/\s+/', '', $data['group_name']));
         $username = $data['group_name'];
+        if (User::where("username", $username)->exists == true) {
+            return [
+                "data" => "username is already taken",
+            ];
+        }
         $password = Str::random(8);
         $token = Str::random(80);
         $user = User::create([
