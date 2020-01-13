@@ -54,8 +54,9 @@ class LoginController extends Controller
      */
     public function authenticate(Request $request)
     {
+        $request->username = (preg_replace('/\s+/', '', strtolower($request->username)));
         $credentials = $request->only('username', 'password');
-
+        
         if (Auth::attempt($credentials)) {
             // Authentication passed...
             return [
